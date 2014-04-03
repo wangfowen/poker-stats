@@ -16,9 +16,8 @@
 		</script>
 		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 		<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.6/firebase.js'></script>
-		
+		<script src="/js/stats.js"></script>
 		<script src="/js/main.js"></script>
-		<script src="/js/calc.js"></script>
 		<link rel="stylesheet" href="/css/main.css">
 	</head>
 	<body>
@@ -48,22 +47,25 @@
 				<div id="card-1">
 					<h1>Card 1</h2>
 					<% (1..13).each do |num| %>
-						<button class="card-1 <%= num %>"><%= num %></button>
+						<input type="radio" class="num" name="num" id="card-1-<%= num %>"><label for="card-1-<%= num %>"><%= num %></label>
 					<% end %>
 					<% ["♠", "♣", "♦", "♥"].each do |suit| %>
-						<button class="card-1 <%= suit %>"><%= suit %></button>
+						<input type="radio" class="suit" name="suit" id="card-1-<%= suit %>"><label for="card-1-<%= suit %>"><%= suit %></label>
 					<% end %>
 				</div>
 				<div id="card-2">
 					<h1>Card 2</h2>
 					<% (1..13).each do |num| %>
-						<button class="card-2 <%= num %>"><%= num %></button>
+						<input type="radio" class="num" name="num" id="card-2-<%= num %>"><label for="card-2-<%= num %>"><%= num %></label>
 					<% end %>
 					<% ["♠", "♣", "♦", "♥"].each do |suit| %>
-						<button class="card-2 <%= suit %>"><%= suit %></button>
+						<input type="radio" class="suit" name="suit" id="card-2-<%= suit %>"><label for="card-2-<%= suit %>"><%= suit %></label>
 					<% end %>
 				</div>
 				<div id="actions">
+					<button class="action" id="raise">Raise</button>
+					<button class="action" id="call">Call</button>
+					<button class="action" id="fold">Fold</button>
 				</div>
 			</div>
 		</div>

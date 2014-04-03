@@ -1,21 +1,20 @@
 var fb = new Firebase("https://torid-fire-1414.firebaseio.com/" + name);
 
 $(function() {
-	var numAtTable = 0,
-			numPosition = 0,
+	var stats = new Stats(),
 			$numAtTable = $('#num-at-table'),
 			$numPosition = $('#position');
 
+	stats.init([]);
+
 	var updateNums = function() {
-		$numAtTable.html(numAtTable);
-		$numPosition.html(numPosition);
-		console.log(numAtTable);
-		console.log(numPosition);
+		$numAtTable.html(stats.numAtTable);
+		$numPosition.html(stats.numPosition);
 	};
 
 	$('#start').click(function(e) {
-		numAtTable = $('#table-num').val();
-		numPosition = $('#position-num').val();
+		stats.numAtTable = $('#table-num').val();
+		stats.numPosition = $('#position-num').val();
 
 		updateNums();
 
@@ -28,15 +27,15 @@ $(function() {
 
 		if ($target.hasClass('up')) {
 			if ($target.hasClass('ppl')) {
-				numAtTable++;
+				stats.numAtTable++;
 			} else {
-				numPosition++;
+				stats.numPosition++;
 			}
 		} else {
 			if ($target.hasClass('ppl')) {
-				numAtTable--;
+				stats.numAtTable--;
 			} else {
-				numPosition--;
+				stats.numPosition--;
 			}
 		}
 
