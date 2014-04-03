@@ -1,1 +1,29 @@
-<%= name  %>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Poker Stats</title>
+		<meta name="robots" content="index, follow">
+		<meta name="HandheldFriendly" content="true">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+		<![endif]-->
+		<script>
+			var name = "<%= name  %>";
+		</script>
+		<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.6/firebase.js'></script>
+		
+		<script src="/js/main.js"></script>
+		<script src="/js/calc.js"></script>
+		<link rel="stylesheet" href="/css/main.css">
+	</head>
+	<body>
+		<div id="wrapper">
+			<button id="test">Button</button>
+		</div>
+	</body>
+</html>
