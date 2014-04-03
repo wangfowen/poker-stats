@@ -10,6 +10,22 @@ Stats.prototype.update = function(hand) {
   this.hands.push(hand);
 };
 
+Stats.prototype.incrementPosition = function() {
+	if (this.numPosition < this.numAtTable) {
+		this.numPosition++;
+	} else {
+		this.numPosition = 1;
+	}
+}
+
+Stats.prototype.decrementPosition = function() {
+	if (this.numPosition > 1) {
+		this.numPosition--;
+	} else {
+		this.numPosition = this.numAtTable;
+	}
+}
+
 /* General stats function. predicate2 determines whether or not the hand even qualifies, and
  * predicate2 determines whether or not the hand counts towards the stats. */
 Stats.statsFunction = function(predicate1, predicate2) {
@@ -32,7 +48,7 @@ Stats.statsFunction = function(predicate1, predicate2) {
 Stats.containsOneAction = function(predicate) {
   return function(hand) {
     for (var i = 0; i < hand.pre_flop_action.length; i++) {
-      var action = hand[i];
+      var action = hand.pre_flop_action[i];
       if (predicate(action)) {
         return true;
       }
@@ -41,13 +57,13 @@ Stats.containsOneAction = function(predicate) {
   };
 };
 
-Stats.prototype.vpip = Stats.statsFunction(Stats.isVpip, Stats.allHands);
-Stats.prototype.pfr = Stats.statsFunction(Stats.isPFR, Stats.allHands);
-
 Stats.allHands = function(hand) { return true; }
-Stats.isVpip = Stats.containsOneAction(function(action) {
-  return (action.type == "raise" || action.type == "call") && action.is_player;
-});
 Stats.isPFR = Stats.containsOneAction(function(action) {
   return action.type == "raise" && action.is_player;
 });
+Stats.isVpip = Stats.containsOneAction(function(action) {
+  return (action.type == "raise" || action.type == "call") && action.is_player;
+});
+Stats.prototype.vpip = Stats.statsFunction(Stats.isVpip, Stats.allHands);
+Stats.prototype.pfr = Stats.statsFunction(Stats.isPFR, Stats.allHands);
+
