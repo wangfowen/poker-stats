@@ -23,7 +23,28 @@
 	</head>
 	<body>
 		<div id="wrapper">
-			<button id="test">Button</button>
+			<div id="start-wrapper">
+				<h1>Game Setup</h1>
+				<p>How many are at the table?</p>
+				<input id="table-num" type="text" />
+				<p>What position are you? (small blind is 1, big blind is 2, etc)</p>
+				<input id="position-num" type="text" />
+				<button id="start">Begin!</button>
+			</div>
+			<div id="game-wrapper">
+				<h1>In Game</h1>
+				<div id="table-box">
+					<p>Number of people at table:</p>
+					<button id="up-ppl">↑</button>
+					<div id="num-at-table">0</div>
+					<button id="down-ppl">↓</button>
+				</div>
+				<div id="position-box">
+					<p>Position number:</p>
+					<button id="up-pos">↑</button>
+					<div id="position">0</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

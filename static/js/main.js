@@ -1,18 +1,21 @@
+var fb = new Firebase("https://torid-fire-1414.firebaseio.com/" + name);
+
 $(function() {
-	var fb = new Firebase("https://torid-fire-1414.firebaseio.com/" + name);
+	var numAtTable = 0,
+			numPosition = 0,
+			$numAtTable = $('#num-at-table'),
+			$numPosition = $('#position');
 
-	$('#test').click(function(e) {
-		fb.push({action: "derp"});
+	$('#start').click(function(e) {
+		numAtTable = $('#table-num').val();
+		numPosition = $('#position-num').val();
+
+		$numAtTable.html(numAtTable);
+		$numPosition.html(numPosition);
+
+		$('#start-wrapper').hide();
+		$('#game-wrapper').show();
 	});
 
-	//happens when something new gets added
-	fb.on('child_added', function(snapshot) {
-		console.log(snapshot.val());
-	});
-
-	//happens when page loads. populate page
-	fb.on('value', function(snapshot) {
-		console.log(snapshot);
-	});
-
+	//fb.push({action: "derp"});
 });
