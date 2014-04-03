@@ -52,7 +52,7 @@
 				</div>
 				<% (1..2).each do |card| %>
 					<div id="card-<%= card %>">
-						<h1>Card <%= card %></h2>
+						<h2>Card <%= card %></h2>
 						<% (2..10).each do |num| %>
 							<input type="radio" name="num-<%= card %>" class="num" id="card-<%= card %>-<%= num %>" value="<%= num %>"><label for="card-<%= card %>-<%= num %>"><%= num %></label>
 						<% end %>
@@ -60,7 +60,7 @@
 							<input type="radio" name="num-<%= card %>" class="num" id="card-<%= card %>-<%= num %>" value="<%= num %>"><label for="card-<%= card %>-<%= num %>"><%= num %></label>
 						<% end %>
 						<% ["♠", "♣", "♦", "♥"].each do |suit| %>
-							<input type="radio" name="suit-<%= suit %>" class="suit" id="card-<%= card %>-<%= suit %>" value="<%= suit %>"><label for="card-<%= card %>-<%= suit %>"><%= suit %></label>
+							<input type="radio" name="suit-<%= card %>" class="suit" id="card-<%= card %>-<%= suit %>" value="<%= suit %>"><label for="card-<%= card %>-<%= suit %>"><%= suit %></label>
 						<% end %>
 					</div>
 				<% end %>
@@ -68,7 +68,7 @@
 					<input type="text" id="raise-amount">
 					<button class="action" id="raise">Raise</button>
 					<button class="action" id="call">Call</button>
-					<button class="action" id="fold">Fold</button>
+					<button class="action" id="fold">Check / Fold</button>
 				</div>
 				<div id="action-queue"></div>
 				<button id="end-hand">End hand</button>
