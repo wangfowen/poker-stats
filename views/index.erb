@@ -45,6 +45,26 @@
 					<div id="position">0</div>
 					<button class="counter down pos" id="down-pos">↓</button>
 				</div>
+				<div id="card-1">
+					<h1>Card 1</h2>
+					<% (1..13).each do |num| %>
+						<button class="card-1 <%= num %>"><%= num %></button>
+					<% end %>
+					<% ["♠", "♣", "♦", "♥"].each do |suit| %>
+						<button class="card-1 <%= suit %>"><%= suit %></button>
+					<% end %>
+				</div>
+				<div id="card-2">
+					<h1>Card 2</h2>
+					<% (1..13).each do |num| %>
+						<button class="card-2 <%= num %>"><%= num %></button>
+					<% end %>
+					<% ["♠", "♣", "♦", "♥"].each do |suit| %>
+						<button class="card-2 <%= suit %>"><%= suit %></button>
+					<% end %>
+				</div>
+				<div id="actions">
+				</div>
 			</div>
 		</div>
 	</body>
