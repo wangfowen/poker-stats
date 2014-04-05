@@ -1,3 +1,69 @@
 #game-wrapper {
 	display: none;
 }
+
+#actions .form-group {
+	margin-right: 25px;
+}
+
+#action-queue {
+	margin: 30px 0;
+}
+
+#opponent {
+	margin-top: 20px;
+}
+
+#right-box {
+	float: right;
+}
+
+#left-box {
+	float: left;
+}
+
+.nums {
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.nums .up {
+	width: 0; 
+	height: 0; 
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 5px solid black;
+	cursor: pointer;
+}
+
+.nums .down {
+	width: 0; 
+	height: 0; 
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-top: 5px solid black;
+	cursor: pointer;
+}
+
+#stats-box p {
+	display: block;
+	margin-top: 15px;
+	font-weight: bold;
+}
+
+.card-radio {
+	display: none;
+}
+
+.card-label {
+	cursor: pointer;
+	padding: 8px 10px;
+	margin: 3px;
+	border: 1px solid #ccc;
+	font-size: 20px;
+}
+
+.card-radio:checked + .card-label {
+	border: 1px solid black;
+	background: #eee;
+}

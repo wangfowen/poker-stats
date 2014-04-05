@@ -7,6 +7,101 @@
 		<meta name="robots" content="index, follow">
 		<meta name="HandheldFriendly" content="true">
 		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/css/main.css">
+	</head>
+	<body>
+		<div id="wrapper">
+			<div class="col-sm-6" id="start-wrapper">
+				<h1>Game Setup</h1>
+				<div class="form-group">
+					<p>How many are at the table?</p>
+					<input id="table-num" class="form-control" placeholder="3" autofocus type="text" />
+				</div>
+				<div class="form-group">
+					<p>What position are you? (small blind is 1, big blind is 2, etc)</p>
+					<input id="position-num" type="text" class="form-control" placeholder="1" />
+				</div>
+				<div class="form-group">
+					<button class="btn btn-default" id="start">Begin!</button>
+				</div>
+			</div>
+			<div id="game-wrapper" class="col-sm-10">
+				<h1>In Game</h1>
+				<div id="right-box">
+					<div id="table-box" class="nums">
+						<p>People at table:</p>
+						<div class="counter up ppl" id="up-ppl"></div>
+						<div id="num-at-table">0</div>
+						<div class="counter down ppl" id="down-ppl"></div>
+					</div>
+					<div id="position-box" class="nums">
+						<p>Position:</p>
+						<div class="counter up pos" id="up-pos"></div>
+						<div id="position">0</div>
+						<div class="counter down pos" id="down-pos"></div>
+					</div>
+					<div id="stats-box">
+						<p>VPIP: <span id="vpip">0</span></p>
+						<p>PFR: <span id="pfr">0</span></p>
+					</div>
+				</div>
+				<div id="left-box">
+					<div id="actions" class="form-inline">
+						<p>List you and opponents' pre-flop actions:</p>
+						<div id="you">
+							<p>You</p>
+							<div class="form-group">
+								<input class="form-control" type="text" id="you-raiseAmount" placeholder="200">
+								<button class="btn btn-default btn btn-default action" id="you-raise">Raise</button>
+							</div>
+							<div class="form-group">
+								<button class="btn btn-default action" id="you-call">Call</button>
+							</div>
+							<div class="form-group">
+								<button class="btn btn-default action" id="you-fold">Check / Fold</button>
+							</div>
+						</div>
+						<div id="opponent">
+							<p>Opponent</p>
+							<div class="form-group">
+								<input class="form-control" type="text" id="opponent-raiseAmount" placeholder="200">
+								<button class="btn btn-default btn btn-default action" id="opponent-raise">Raise</button>
+							</div>
+							<div class="form-group">
+								<button class="btn btn-default action" id="opponent-call">Call</button>
+							</div>
+							<div class="form-group">
+								<button class="btn btn-default action" id="opponent-fold">Check / Fold</button>
+							</div>
+						</div>
+					</div>
+					<div id="action-queue"></div>
+					<p>Select the cards you had this hand:</p>
+					<% (1..2).each do |card| %>
+						<div id="card-<%= card %>">
+							<h3>Card <%= card %></h3>
+							<div class="form-group">
+								<% (2..10).each do |num| %>
+									<input type="radio" name="num-<%= card %>" class="card-radio num" id="card-<%= card %>-<%= num %>" value="<%= num %>"><label class="card-label" for="card-<%= card %>-<%= num %>"><%= num %></label>
+								<% end %>
+								<% ["J", "Q", "K", "A"].each do |num| %>
+									<input type="radio" name="num-<%= card %>" class="card-radio num" id="card-<%= card %>-<%= num %>" value="<%= num %>"><label class="card-label" for="card-<%= card %>-<%= num %>"><%= num %></label>
+								<% end %>
+							</div>
+							<div class="form-group">
+								<% ["♠", "♣", "♦", "♥"].each do |suit| %>
+									<input type="radio" name="suit-<%= card %>" class="card-radio suit" id="card-<%= card %>-<%= suit %>" value="<%= suit %>"><label class="card-label" for="card-<%= card %>-<%= suit %>"><%= suit %></label>
+								<% end %>
+							</div>
+						</div>
+					<% end %>
+					<div class="form-group">
+						<button class="btn btn-default" id="end-hand">End hand</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
@@ -18,61 +113,5 @@
 		<script type='text/javascript' src='https://cdn.firebase.com/js/client/1.0.6/firebase.js'></script>
 		<script src="/js/stats.js"></script>
 		<script src="/js/main.js"></script>
-		<link rel="stylesheet" href="/css/main.css">
-	</head>
-	<body>
-		<div id="wrapper">
-			<div id="start-wrapper">
-				<h1>Game Setup</h1>
-				<p>How many are at the table?</p>
-				<input id="table-num" type="text" />
-				<p>What position are you? (small blind is 1, big blind is 2, etc)</p>
-				<input id="position-num" type="text" />
-				<button id="start">Begin!</button>
-			</div>
-			<div id="game-wrapper">
-				<h1>In Game</h1>
-				<div id="table-box">
-					<p>Number of people at table:</p>
-					<button class="counter up ppl" id="up-ppl">↑</button>
-					<div id="num-at-table">0</div>
-					<button class="counter down ppl" id="down-ppl">↓</button>
-				</div>
-				<div id="position-box">
-					<p>Position number:</p>
-					<button class="counter up pos" id="up-pos">↑</button>
-					<div id="position">0</div>
-					<button class="counter down pos" id="down-pos">↓</button>
-				</div>
-				<div id="stats-box">
-					<p>VPIP:</p>
-					<div id="vpip">0</div>
-					<p>PFR:</p>
-					<div id="pfr">0</div>
-				</div>
-				<% (1..2).each do |card| %>
-					<div id="card-<%= card %>">
-						<h2>Card <%= card %></h2>
-						<% (2..10).each do |num| %>
-							<input type="radio" name="num-<%= card %>" class="num" id="card-<%= card %>-<%= num %>" value="<%= num %>"><label for="card-<%= card %>-<%= num %>"><%= num %></label>
-						<% end %>
-						<% ["J", "Q", "K", "A"].each do |num| %>
-							<input type="radio" name="num-<%= card %>" class="num" id="card-<%= card %>-<%= num %>" value="<%= num %>"><label for="card-<%= card %>-<%= num %>"><%= num %></label>
-						<% end %>
-						<% ["♠", "♣", "♦", "♥"].each do |suit| %>
-							<input type="radio" name="suit-<%= card %>" class="suit" id="card-<%= card %>-<%= suit %>" value="<%= suit %>"><label for="card-<%= card %>-<%= suit %>"><%= suit %></label>
-						<% end %>
-					</div>
-				<% end %>
-				<div id="actions">
-					<input type="text" id="raise-amount">
-					<button class="action" id="raise">Raise</button>
-					<button class="action" id="call">Call</button>
-					<button class="action" id="fold">Check / Fold</button>
-				</div>
-				<div id="action-queue"></div>
-				<button id="end-hand">End hand</button>
-			</div>
-		</div>
 	</body>
 </html>

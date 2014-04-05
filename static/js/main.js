@@ -3,7 +3,8 @@ $(function() {
 	var stats = new Stats(),
 			$numAtTable = $('#num-at-table'),
 			$numPosition = $('#position'),
-			$raiseAmount = $('#raise-amount'),
+			$youRaiseAmount = $('#you-raiseAmount'),
+			$oppRaiseAmount = $('#opponent-raiseAmount'),
 			$actionQueue = $('#action-queue'),
 			$vpip = $('#vpip'),
 			$pfr = $('#pfr'),
@@ -98,31 +99,45 @@ $(function() {
 	};
 
 	$('#actions button').click(function(e) {
-		var action = $(e.target).attr('id');
-		if (cards.length === 0) {
-			addCard($('input[name="num-1"]:checked').val(), $('input[name="suit-1"]:checked').val());
-			addCard($('input[name="num-2"]:checked').val(), $('input[name="suit-2"]:checked').val());
+		var id = $(e.target).attr('id').split("-"),
+				person = id[0],
+				action = id[1],
+				isPlayer = true,
+				amount;
+
+		if (person === "opponent") {
+			isPlayer = false;
 		}
 
-		//TODO: add for other player as well
+		if (preFlopAction.length === 0) {
+			$actionQueue.html($actionQueue.html()+"<p>Actions taken this hand:</p>")
+		}
+
 		if (action === "call" || action === "fold") {
 			preFlopAction.push({
 				type: action,
-				is_player: true
+				is_player: isPlayer 
 			});
-			$actionQueue.html($actionQueue.html()+"<p>" + action + "</p>")
+			$actionQueue.html($actionQueue.html()+"<p>" + person + " " + action + "</p>")
 		} else {
-			var amount = parseInt($raiseAmount.val(), 10);
+			if (isPlayer) {
+				amount = parseInt($youRaiseAmount.val(), 10);
+			} else {
+				amount = parseInt($oppRaiseAmount.val(), 10);
+			}
 			preFlopAction.push({
 				type: action,
 				amount: amount,
-				is_player: true
+				is_player: isPlayer 
 			});
-			$actionQueue.html($actionQueue.html()+"<p>" + action + " " + amount + "</p>")
+			$actionQueue.html($actionQueue.html()+"<p>" + person + " " + action + " " + amount + "</p>")
 		}
 	});
 
 	$('#end-hand').click(function(e) {
+		addCard($('input[name="num-1"]:checked').val(), $('input[name="suit-1"]:checked').val());
+		addCard($('input[name="num-2"]:checked').val(), $('input[name="suit-2"]:checked').val());
+
 		var hand = {
 			hand: cards,
 			position: stats.numPosition,
@@ -133,12 +148,11 @@ $(function() {
 
 		stats.incrementPosition();
 		updateNums();
+		$('input:checked').prop('checked', false);
+		$actionQueue.html("");
 
 		preFlopAction = [];
 		cards = [];
-
-		//TODO: update stats
-		$actionQueue.html("");
 	});
 
 	
