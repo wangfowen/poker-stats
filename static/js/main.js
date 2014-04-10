@@ -146,7 +146,7 @@ $(function() {
 
 		fb.push(hand);
 
-		stats.incrementPosition();
+		stats.decrementPosition();
 		updateNums();
 		$('input:checked').prop('checked', false);
 		$actionQueue.html("");
